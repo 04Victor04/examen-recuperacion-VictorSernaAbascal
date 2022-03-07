@@ -1,6 +1,8 @@
 import React from 'react';
-import { Card, Container, Table, Row, Col, Accordion } from 'react-bootstrap';
+import { Accordion } from 'react-bootstrap';
 import uuid from 'react-uuid';
+import Formulario from './Formulario';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Ejercicio2 extends React.Component {
   constructor(props) {
@@ -10,7 +12,7 @@ class Ejercicio2 extends React.Component {
     };
   }
   async componentDidMount() {
-    fetch("https://v2.jokeapi.dev/joke/Any?lang=es&type=twopart&amount=3")
+    fetch('https://v2.jokeapi.dev/joke/Any?lang=es&type=twopart&amount=3')
       .then((response) => response.json())
       .then((data) =>
         this.setState({
@@ -95,6 +97,10 @@ class Ejercicio2 extends React.Component {
             );
           })}
         </Accordion>
+        <a>------------------------------------------------------</a>
+        <h3>Formulario</h3>
+        <Formulario>
+          </Formulario>
       </div>
     );
   }
