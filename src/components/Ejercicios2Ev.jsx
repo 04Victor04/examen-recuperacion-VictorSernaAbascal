@@ -75,6 +75,7 @@ class Ejercicio2 extends React.Component {
             jokeLanguages)<b> (1,5 puntos)</b>
           </li>
         </ul>
+        <a>------------------------------------------------------</a>
         <h1>Lista Memes</h1>
         {this.state.Memes.map((item) => {
           return (
@@ -99,8 +100,7 @@ class Ejercicio2 extends React.Component {
         </Accordion>
         <a>------------------------------------------------------</a>
         <h3>Formulario</h3>
-        <Formulario>
-          </Formulario>
+        
       </div>
     );
   }

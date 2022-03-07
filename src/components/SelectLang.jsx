@@ -1,37 +1,50 @@
 import React from 'react';
+import { Form, Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/esm/Button';
 import uuid from 'react-uuid';
-import { Col, Form } from 'react-bootstrap';
-import { BASE_API_URL } from '../data/Constants';
 
 class SelectLang extends React.Component {
   constructor(props) {
     super(props);
-    this.reference = props.reference;
-    this.brands = [];
+    this.state = {
+      Idiomas: [],
+      idioma: '',
+      Selected: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  async componentDidMount() {
-    const responseBrands = await fetch(BASE_API_URL + 'brands');
-    const responseDataBrands = await responseBrands.json();
-    this.brands = responseDataBrands.data;
+  async componentDidMount() {fetch('https://v2.jokeapi.dev/languages')
+  .then((response) => response.json())
+  .then((data) =>
+    this.setState({
+      Idiomas: data.jokeLanguages,
+    })
+  );
   }
+
+  handleChange(e) {
+    this.setState({ Selected: e.target.value });
+  }
+
   render() {
-    console.log('select renderizado');
-    return (
-      <Form.Group as={Col}>
-        <Form.Label>Lang</Form.Label>
-        <Form.Select ref={this.reference}>
-          {this.brands.map((item) => {
-            return (
-              <option key={uuid()} value={item.brand_slug}>
-                {item.brand_name}
-              </option>
-            );
-          })}
-        </Form.Select>
-      </Form.Group>
-    );
-  }
+    {this.state.Idiomas.map((item) => {
+      return (
+        <Form>
+          <fieldset>
+            <Form.Group className="mb-3">
+              <select onChange={this.handleChange}>
+                {this.state.Idiomas.map((item) => {
+                  return <option value={item.idioma}>{item}</option>;
+                })}
+              </select>
+            </Form.Group>
+            <Button onClick={() => this.eventoclick()}>Cambiar idioma</Button>
+          </fieldset>
+        </Form>
+      );
+    })}
+}
 }
 
 export default SelectLang;
