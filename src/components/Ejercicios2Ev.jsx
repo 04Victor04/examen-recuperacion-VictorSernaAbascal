@@ -1,17 +1,23 @@
 import React from 'react';
+import Ejer2 from './Ejer2';
+import { Card, Container, Table, Row, Col, Accordion } from 'react-bootstrap';
+import uuid from 'react-uuid';
 
 class Ejercicio2 extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { listaMemes: [] };
+    this.state = {
+      Memes: [],
+    };
   }
-
   async componentDidMount() {
-    const response = await fetch(
-      'https://v2.jokeapi.dev/joke/Any?lang=es&type=twopart&amount=3'
-    );
-    const data = await response.json();
-    this.setState({ listaMemes: data });
+    fetch("https://v2.jokeapi.dev/joke/Any?lang=es&type=twopart&amount=3")
+      .then((response) => response.json())
+      .then((data) =>
+        this.setState({
+          Memes: data.jokes,
+        })
+      );
   }
 
   render() {
@@ -68,14 +74,28 @@ class Ejercicio2 extends React.Component {
             jokeLanguages)<b> (1,5 puntos)</b>
           </li>
         </ul>
-        <div>
-          <h1>Lista Memes</h1>
-          <ul>
-            {this.state.listaMemes.map( function GeneraElemento(item) {
-              return <li>setup: {item.setup} - delivery: {item.delivery}</li>;
-            })}
-          </ul>
-        </div>
+        <h1>Lista Memes</h1>
+        {this.state.Memes.map((item) => {
+          return (
+            <ul>
+              <li>
+                {item.setup} - {item.delivery}
+              </li>
+            </ul>
+          );
+        })}
+        <p>------------------------------------------------------</p>
+        <h2>Acordeón</h2>
+        <Accordion defaultActiveKey="0">
+          {this.state.Memes.map((item) => {
+            return (
+              <Accordion.Item eventKey={uuid()}>
+                <Accordion.Header>{item.setup}</Accordion.Header>
+                <Accordion.Body>{item.delivery}</Accordion.Body>
+              </Accordion.Item>
+            );
+          })}
+        </Accordion>
       </div>
     );
   }
