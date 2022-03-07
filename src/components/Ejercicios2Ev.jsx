@@ -1,5 +1,4 @@
 import React from 'react';
-import Ejer2 from './Ejer2';
 import { Card, Container, Table, Row, Col, Accordion } from 'react-bootstrap';
 import uuid from 'react-uuid';
 
@@ -84,9 +83,9 @@ class Ejercicio2 extends React.Component {
             </ul>
           );
         })}
-        <p>------------------------------------------------------</p>
+        <a>------------------------------------------------------</a>
         <h2>Acordeón</h2>
-        <Accordion defaultActiveKey="0">
+        <Accordion defaultActiveKey="0" flush>
           {this.state.Memes.map((item) => {
             return (
               <Accordion.Item eventKey={uuid()}>
